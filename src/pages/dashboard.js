@@ -24,7 +24,6 @@ export default function Dashboard() {
     <div style={{ padding: '20px' }}>
       <h1>Dashboard</h1>
       <p>Welcome, {session.user.email}</p>
-      {/* Add more content for logged-in users here */}
     </div>
   );
 }
