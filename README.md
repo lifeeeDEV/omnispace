@@ -4,6 +4,7 @@
 Get started:
 
 > create a `.env.local` file and fill out the details. *(get your MongoDB URL at https://mongodb.com)*
+
 ``env
 DATABASE_URL=mongodb+srv://your-mongo-db
 NEXTAUTH_URL=https://your-server-url.com
