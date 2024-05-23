@@ -24,7 +24,7 @@ export default function LeftSidebar() {
       <ul className="space-y-2">
         {communities.map((community) => (
           <li key={community._id}>
-            <Link href={`/communities/${community._id}`}
+<Link href={`/communities/${community.name.toLowerCase()}`}
                className="block p-2 rounded text-gray-300 hover:text-white hover:bg-gray-700 transition duration-300 ease-in-out transform hover:-translate-y-1">
                 {community.name}
             </Link>

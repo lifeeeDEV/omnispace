@@ -14,6 +14,11 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    communityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Community',
+      required: true,
+    },
   },
   {
     timestamps: true,

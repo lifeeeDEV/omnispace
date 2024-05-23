@@ -13,7 +13,7 @@ export default NextAuth({
         try {
           const user = await User.findOne({ email: credentials.email });
           if (user && await bcrypt.compare(credentials.password, user.password)) {
-            return { id: user._id.toString(), email: user.email };  // Ensure id is a string
+            return { id: user._id.toString(), email: user.email };
           } else {
             return null;
           }
@@ -27,22 +27,22 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;  // Set user id in the token
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;  // Access user id from the token
+      session.user.id = token.id;
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,  // Ensure this line is present
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     jwt: true,
   },
   pages: {
     signIn: '/login',
     signOut: '/',
-    error: '/login', // Redirect to login page in case of error
+    error: '/login',
   },
 });

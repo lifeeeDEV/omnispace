@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
+import Footer from './Footer';
 import { useState } from 'react';
 
 export default function Layout({ children }) {

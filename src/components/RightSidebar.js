@@ -13,9 +13,9 @@ const RightSidebar = () => {
     <div className="w-1/4 p-4 ">
       <Card className="bg-gray-800">
         <CardContent>
-          <Typography variant="h6" className="text-white">This is Omni...</Typography>
+          <Typography variant="h6" className="text-white">Omni Space</Typography>
           <Typography variant="body1" className="text-white" paragraph>
-            A safe place for people with cool odds :p
+            The all in one platform for chatting, discussing, memes, politics and much more.
           </Typography>
           <Button variant="contained" color="primary" className="text-white" onClick={handleCreatePost}>
             Create Post

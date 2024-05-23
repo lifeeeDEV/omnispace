@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getSession, useSession } from 'next-auth/react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import dbConnect from '../utils/dbConnect';
@@ -7,9 +7,10 @@ import Community from '../models/Community';
 import LeftSidebar from '../components/LeftSidebar';
 import RightSidebar from '../components/RightSidebar';
 import PostList from '../components/PostList';
+import Link from 'next/link';
 
 const Feed = ({ posts, communities }) => {
-  const { data: session, status } = useSession();
+  const { data: session, id, status } = useSession();
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -19,10 +20,18 @@ const Feed = ({ posts, communities }) => {
     return <p>Please log in to see the feed.</p>;
   }
 
+
+
   return (
     <div className="flex">
       <div className="flex-grow p-4">
-        <PostList posts={posts} />
+        {posts.map(post => (
+          <Link key={post._id} href={`/posts/${post._id}`}>
+
+              <PostList posts={[post]} />
+
+          </Link>
+        ))}
       </div>
     </div>
   );

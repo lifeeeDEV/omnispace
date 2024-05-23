@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import Link from 'next/link';
 
 const CommunitiesPage = () => {
   const [communities, setCommunities] = useState([]);
@@ -24,13 +25,15 @@ const CommunitiesPage = () => {
       <Typography variant="h4" component="div">
         Communities
       </Typography>
+      <Link href="/communities/create">
       <Button className="round bg-4 mb-4 ml-4">Create a Community</Button>
+      </Link>
       {Array.isArray(communities) && communities.length > 0 ? (
         communities.map((community) => (
-          <Card key={community._id} className="mb-4">
-            <CardContent>
-              <Typography variant="h5">{community.name}</Typography>
-              <Typography variant="body1">{community.description}</Typography>
+          <Card key={community._id} className="mb-4 bg-gray-800">
+            <CardContent className="bg-gray-800">
+              <Typography variant="h5" className="text-white">{community.name}</Typography>
+              <Typography variant="body1" className="text-white">{community.description}</Typography>
             </CardContent>
           </Card>
         ))

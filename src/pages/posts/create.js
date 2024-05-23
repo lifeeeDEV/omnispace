@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import { TextField, Button, Card, CardContent, Typography, Box } from '@mui/material';
 
 const CreatePost = () => {
   const { data: session, status } = useSession();
@@ -20,16 +20,14 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Session before fetch:', session); // Log the session
+    console.log('Session before fetch:', session);
 
     const res = await fetch('/api/posts/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Include the token from the session in the Authorization header
-        'Authorization': `Bearer ${session.token}`,
       },
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ title, content, author: session.user.email }),
     });
 
     if (res.ok) {
@@ -41,12 +39,12 @@ const CreatePost = () => {
   };
 
   return (
-    <Card>
+    <Card sx={{ maxWidth: 600, mx: 'auto', mt: 5 }}>
       <CardContent>
-        <Typography variant="h5" component="div">
+        <Typography variant="h5" component="div" gutterBottom>
           Create a New Post
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
           <TextField
             label="Title"
             variant="outlined"
@@ -55,6 +53,7 @@ const CreatePost = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            size="small"
           />
           <TextField
             label="Content"
@@ -66,11 +65,12 @@ const CreatePost = () => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+            size="small"
           />
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
             Submit
           </Button>
-        </form>
+        </Box>
       </CardContent>
     </Card>
   );
