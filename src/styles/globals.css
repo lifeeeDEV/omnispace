@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-dark text-white;
+}
+
+body {
+  @apply bg-gray-900 text-white;
+}
+
+a {
+  @apply text-blue-400 hover:text-blue-600 transition-colors duration-300;
+}
+
+  
+  nav {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+  }
+  
+  nav a {
+    margin-right: 10px;
+  }
+  
+  nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 16px;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: none;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    text-decoration: underline;
+  }
+  
+  div {
+    padding: 20px;
+  }
+  
