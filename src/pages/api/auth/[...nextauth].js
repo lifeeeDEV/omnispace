@@ -13,7 +13,7 @@ export default NextAuth({
         try {
           const user = await User.findOne({ email: credentials.email });
           if (user && await bcrypt.compare(credentials.password, user.password)) {
-            return { id: user._id.toString(), email: user.email };
+            return { id: user._id.toString(), email: user.email, username: user.username }; // Username hinzufügen
           } else {
             return null;
           }
@@ -28,11 +28,13 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.username = user.username; // Username hinzufügen
       }
       return token;
     },
     async session({ session, token }) {
       session.user.id = token.id;
+      session.user.username = token.username; // Username hinzufügen
       return session;
     },
   },

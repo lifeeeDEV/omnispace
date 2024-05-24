@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { TextField, Button, Card, CardContent, Typography, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { TextField, Button, Card, CardContent, Typography, Box, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 const CreatePost = () => {
   const { data: session, status } = useSession();
@@ -14,8 +14,8 @@ const CreatePost = () => {
   useEffect(() => {
     const fetchCommunities = async () => {
       try {
-        const response = await fetch('/api/communities');
-        const data = await response.json();
+        const res = await fetch('/api/communities');
+        const data = await res.json();
         setCommunities(data);
       } catch (error) {
         console.error('Error fetching communities:', error);
@@ -43,7 +43,7 @@ const CreatePost = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title, content, author: session.user.email, communityId }),
+      body: JSON.stringify({ title, content, communityId }),
     });
 
     if (res.ok) {
@@ -84,13 +84,11 @@ const CreatePost = () => {
             size="small"
           />
           <FormControl fullWidth margin="normal">
-            <InputLabel id="community-select-label">Community</InputLabel>
+            <InputLabel>Community</InputLabel>
             <Select
-              labelId="community-select-label"
-              id="community-select"
               value={communityId}
-              label="Community"
               onChange={(e) => setCommunityId(e.target.value)}
+              displayEmpty
             >
               <MenuItem value="">
                 <em>None</em>

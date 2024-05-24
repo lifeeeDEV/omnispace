@@ -9,13 +9,13 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' });
+  if (!username || !email || !password) {
+    return res.status(400).json({ error: 'Username, email, and password are required' });
   }
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
     return res.status(400).json({ error: 'User already exists' });
   }
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = new User({
+    username,
     email,
     password: hashedPassword,
   });

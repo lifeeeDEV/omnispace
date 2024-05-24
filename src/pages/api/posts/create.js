@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/dbConnect';
 import Post from '../../../models/Post';
+import User from '../../../models/User'; 
 import { authOptions } from '../auth/[...nextauth]';
 import { getServerSession } from 'next-auth/next';
 
@@ -18,6 +19,13 @@ export default async function handler(req, res) {
           return res.status(401).json({ message: 'Not authenticated' });
         }
 
+        const { email } = session.user;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+
         const { title, content, communityId } = req.body;
         console.log('Request Body:', req.body);
 
@@ -28,12 +36,13 @@ export default async function handler(req, res) {
         const newPost = new Post({
           title,
           content,
-          author: session.user.email,
+          author: user.username, // Use the username instead of email
           communityId: communityId || null,
           createdAt: new Date(),
         });
 
         await newPost.save();
+        console.log('New Post:', newPost);
         res.status(201).json(newPost);
       } catch (error) {
         console.error('Error creating post:', error);

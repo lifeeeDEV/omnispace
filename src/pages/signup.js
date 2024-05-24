@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 export default function Signup() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '', username: '' });
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -34,9 +34,19 @@ export default function Signup() {
   };
 
   return (
-    <div className=" flex justify-center text-white">
+    <div className="flex justify-center text-white">
       <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded shadow-md">
-        <h2 className="text-2xl mb-4">Sign Up</h2><p className="mb-3">Have an Account? <Link href="/login">Login</Link></p>
+        <h2 className="text-2xl mb-4">Sign Up</h2>
+        <p className="mb-3">Have an Account? <Link href="/login">Login</Link></p>
+        <input
+          name="username"
+          type="text"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          required
+          className="mb-4 p-2 w-full rounded bg-gray-700 border border-gray-600"
+        />
         <input
           name="email"
           type="email"
