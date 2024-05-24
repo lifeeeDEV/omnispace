@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         if (!community) {
           return res.status(404).json({ message: 'Community not found' });
         }
-        const posts = await Post.find({ communityId: community._id }).lean();
+        const posts = await Post.find({ communityId: community._id }).sort({ createdAt: -1 });
         res.status(200).json(posts);
       } catch (error) {
         res.status(500).json({ message: 'Error fetching posts' });

@@ -1,39 +1,43 @@
 import dbConnect from '../../../utils/dbConnect';
 import Post from '../../../models/Post';
-import { authOptions } from "../auth/[...nextauth]"
+import { authOptions } from '../auth/[...nextauth]';
 import { getServerSession } from 'next-auth/next';
 
 export default async function handler(req, res) {
-  const { method } = req;
-
   await dbConnect();
 
+  const { method } = req;
 
   switch (method) {
     case 'POST':
-      const session = await getServerSession(req, res, authOptions);
-      console.log('Session:', session);
-      if (!session) {
-        return res.status(401).json({ message: 'Not authenticated' });
-      }
-
-      const { title, content } = req.body;
-
-      if (!title || !content) {
-        return res.status(400).json({ message: 'Title and content are required' });
-      }
-
       try {
+        const session = await getServerSession(req, res, authOptions);
+        console.log('Session:', session);
+
+        if (!session) {
+          return res.status(401).json({ message: 'Not authenticated' });
+        }
+
+        const { title, content, communityId } = req.body;
+        console.log('Request Body:', req.body);
+
+        if (!title || !content) {
+          return res.status(400).json({ message: 'Title and content are required' });
+        }
+
         const newPost = new Post({
           title,
           content,
-          author: session.user.email,  // Use the email from the session
+          author: session.user.email,
+          communityId: communityId || null,
+          createdAt: new Date(),
         });
 
         await newPost.save();
         res.status(201).json(newPost);
       } catch (error) {
-        res.status(500).json({ message: 'Error creating post', error });
+        console.error('Error creating post:', error);
+        res.status(500).json({ message: 'Error creating post', error: error.message });
       }
       break;
 

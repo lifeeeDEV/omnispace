@@ -88,7 +88,7 @@ export async function getServerSideProps(context) {
   await dbConnect();
   const { postId } = context.params;
 
-  const postResult = await Post.findById(postId).lean();
+  const postResult = await Post.findById(postId).populate('communityId').lean();
   if (!postResult) {
     return {
       notFound: true,
@@ -101,6 +101,12 @@ export async function getServerSideProps(context) {
   }
   if (postResult.updatedAt) {
     postResult.updatedAt = postResult.updatedAt.toISOString();
+  }
+  if (postResult.communityId) {
+    postResult.communityId = {
+      _id: postResult.communityId._id.toString(),
+      name: postResult.communityId.name,
+    };
   }
 
   const commentsResult = await Comment.find({ post: postId }).lean();

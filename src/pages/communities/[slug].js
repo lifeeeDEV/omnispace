@@ -78,6 +78,9 @@ const CommunityPage = () => {
                 </Typography>
               </Link>
               <Typography variant="body2">{post.content}</Typography>
+              <Typography variant="caption" className="text-gray-500">
+                Posted by {post.author} on {new Date(post.createdAt).toLocaleString()}
+              </Typography>
             </CardContent>
           </Card>
         ))}

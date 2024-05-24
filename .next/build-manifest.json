@@ -27,6 +27,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/communities/[slug].js"
     ],
+    "/posts/[postId]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/posts/[postId].js"
+    ],
     "/posts/create": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
