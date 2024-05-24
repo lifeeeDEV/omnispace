@@ -8,6 +8,7 @@ const CreatePost = () => {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [error, setError] = useState('');
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -35,6 +36,7 @@ const CreatePost = () => {
     } else {
       const errorData = await res.json();
       console.error('Error creating post', errorData);
+      setError('Error creating post. Please try again.');
     }
   };
 
@@ -44,6 +46,11 @@ const CreatePost = () => {
         <Typography variant="h5" component="div" gutterBottom>
           Create a New Post
         </Typography>
+        {error && (
+          <Typography variant="body2" color="error" gutterBottom>
+            {error}
+          </Typography>
+        )}
         <Box component="form" onSubmit={handleSubmit}>
           <TextField
             label="Title"

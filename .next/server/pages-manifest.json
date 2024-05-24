@@ -2,11 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/create-post": "pages/create-post.js",
-  "/danny": "pages/danny.js",
-  "/api/communities": "pages/api/communities.js",
-  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/posts/[postId]": "pages/posts/[postId].js",
   "/communities/[slug]": "pages/communities/[slug].js",
-  "/api/communities/[slug]": "pages/api/communities/[slug].js",
-  "/api/communities/[slug]/posts": "pages/api/communities/[slug]/posts.js"
+  "/posts/create": "pages/posts/create.js"
 }

@@ -27,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/communities/[slug].js"
     ],
-    "/create-post": [
+    "/posts/create": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/create-post.js"
+      "static/chunks/pages/posts/create.js"
     ]
   },
   "ampFirstPages": []

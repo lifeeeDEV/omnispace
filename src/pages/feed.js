@@ -10,7 +10,7 @@ import PostList from '../components/PostList';
 import Link from 'next/link';
 
 const Feed = ({ posts, communities }) => {
-  const { data: session, id, status } = useSession();
+  const { data: session, status } = useSession();
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -20,16 +20,12 @@ const Feed = ({ posts, communities }) => {
     return <p>Please log in to see the feed.</p>;
   }
 
-
-
   return (
     <div className="flex">
       <div className="flex-grow p-4">
         {posts.map(post => (
-          <Link key={post._id} href={`/posts/${post._id}`}>
-
+          <Link key={post._id} href={`/posts/${post._id}`} passHref>
               <PostList posts={[post]} />
-
           </Link>
         ))}
       </div>
@@ -60,6 +56,9 @@ export async function getServerSideProps(context) {
     }
     if (post.updatedAt) {
       post.updatedAt = post.updatedAt.toISOString();
+    }
+    if (post.communityId && typeof post.communityId === 'object') {
+      post.communityId = post.communityId.toString();
     }
     return post;
   });
