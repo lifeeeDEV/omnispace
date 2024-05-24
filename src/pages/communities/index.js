@@ -32,8 +32,10 @@ const CommunitiesPage = () => {
         communities.map((community) => (
           <Card key={community._id} className="mb-4 bg-gray-800">
             <CardContent className="bg-gray-800">
+            <Link href={`/communities/${community.name.toLowerCase()}`}>
               <Typography variant="h5" className="text-white">{community.name}</Typography>
               <Typography variant="body1" className="text-white">{community.description}</Typography>
+              </Link>
             </CardContent>
           </Card>
         ))

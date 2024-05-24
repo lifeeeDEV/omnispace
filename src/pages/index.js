@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { getSession, useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function LandingPage() {
@@ -38,10 +38,10 @@ export default function LandingPage() {
               >
                 Sign Out
               </button>
-              <Link href="/feed"
-                className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-full shadow-md transition-transform transform hover:scale-105">
+              <Link href="/feed">
+                <a className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-full shadow-md transition-transform transform hover:scale-105">
                   Go to Feed
-               
+                </a>
               </Link>
             </>
           )}
@@ -49,4 +49,23 @@ export default function LandingPage() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/feed',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

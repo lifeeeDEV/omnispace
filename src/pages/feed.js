@@ -3,10 +3,8 @@ import { getSession, useSession } from 'next-auth/react';
 import dbConnect from '../utils/dbConnect';
 import Post from '../models/Post';
 import Community from '../models/Community';
-import LeftSidebar from '../components/LeftSidebar';
-import RightSidebar from '../components/RightSidebar';
-import PostList from '../components/PostList';
 import Link from 'next/link';
+import PostItem from '../components/PostItem';
 
 const Feed = ({ posts, communities }) => {
   const { data: session, status } = useSession();
@@ -23,20 +21,7 @@ const Feed = ({ posts, communities }) => {
     <div className="flex">
       <div className="flex-grow p-4">
         {posts.map(post => (
-          <Link key={post._id} href={`/posts/${post._id}`} passHref
-             className="block p-4 mb-4 bg-white rounded shadow-md hover:bg-gray-100 transition duration-300">
-              <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-              <p className="text-gray-700 mb-2">{post.content}</p>
-              <div className="text-sm text-gray-500">
-                <span>Posted by {post.author}</span> | <span>{new Date(post.createdAt).toLocaleString()}</span>
-              </div>
-              {post.communityId && (
-                <div className="text-sm text-gray-500">
-                  Community: {post.communityId.name}
-                </div>
-              )}
-
-          </Link>
+          <PostItem key={post._id} post={post} />
         ))}
       </div>
     </div>
@@ -57,9 +42,9 @@ export async function getServerSideProps(context) {
 
   await dbConnect();
 
-  const postsResult = await Post.find({}).populate('communityId').sort({ createdAt: -1 }); // Sort by createdAt descending
+  const postsResult = await Post.find({}).populate('communityId').sort({ createdAt: -1 }).lean();
   const posts = postsResult.map(doc => {
-    const post = doc.toObject();
+    const post = doc;
     post._id = post._id.toString();
     if (post.createdAt) {
       post.createdAt = post.createdAt.toISOString();

@@ -2,13 +2,14 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/feed": "pages/feed.js",
+  "/": "pages/index.js",
   "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/feed": "pages/feed.js",
   "/api/communities": "pages/api/communities.js",
   "/login": "pages/login.js",
-  "/profile/me": "pages/profile/me.js",
   "/signup": "pages/signup.js",
-  "/api/auth/signup": "pages/api/auth/signup.js",
-  "/posts/create": "pages/posts/create.js",
-  "/api/posts/create": "pages/api/posts/create.js"
+  "/communities/[slug]": "pages/communities/[slug].js",
+  "/api/communities/[slug]": "pages/api/communities/[slug].js",
+  "/api/communities/[slug]/posts": "pages/api/communities/[slug]/posts.js",
+  "/api/votes/[postId]": "pages/api/votes/[postId].js"
 }
