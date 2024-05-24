@@ -17,7 +17,10 @@ NEXTAUTH_SECRET=A-RANDOM-SECRET
 
 ```
 # Production Mode
+npm run build
 npm start
+
+or
 
 # Dev Mode
 npm run dev
